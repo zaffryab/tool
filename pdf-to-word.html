@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <title>PDF → Word Converter</title>
   <!-- Load pdf.js -->
-  <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
   <!-- Load docx.js -->
-  <script src="https://docx.js.org/build/docx.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.7.0/docx.umd.min.js"></script>
 </head>
 <body>
   <h1>PDF to Word Converter</h1>
@@ -37,30 +37,33 @@
       if (!pdfDoc) return;
       convertBtn.disabled = true;
       status.textContent = 'Extracting text...';
-      
-      const doc = new docx.Document();
+
+      const { Document, Packer, Paragraph, TextRun } = window.docx;
+      const doc = new Document();
 
       for (let i = 1; i <= pdfDoc.numPages; i++) {
         const page = await pdfDoc.getPage(i);
         const textContent = await page.getTextContent();
         const pageText = textContent.items.map(item => item.str).join(' ');
+
         doc.addSection({
           children: [
-            new docx.Paragraph({
-              children: [new docx.TextRun(pageText)],
+            new Paragraph({
+              children: [new TextRun(pageText)],
             })
           ]
         });
       }
 
-      status.textContent = 'Generating .docx...';
-      const blob = await docx.Packer.toBlob(doc);
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'converted.docx';
-      a.textContent = 'Download your Word file';
-      status.innerHTML = '';
-      status.appendChild(a);
+      status.textContent = 'Generating Word file...';
+      const blob = await Packer.toBlob(doc);
+
+      const downloadLink = document.createElement('a');
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.download = 'converted.docx';
+      downloadLink.click();
+
+      status.textContent = 'Download started.';
     });
   </script>
 </body>
