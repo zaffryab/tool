@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>PDF → Word Converter</title>
+  <!-- Load pdf.js -->
+  <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+  <!-- Load docx.js -->
+  <script src="https://docx.js.org/build/docx.js"></script>
+</head>
+<body>
+  <h1>PDF to Word Converter</h1>
+  <input type="file" id="pdfInput" accept="application/pdf"><br><br>
+  <button id="convertBtn" disabled>Convert to Word</button>
+  <div id="status"></div>
+
+  <script>
+    const pdfInput = document.getElementById('pdfInput');
+    const convertBtn = document.getElementById('convertBtn');
+    const status = document.getElementById('status');
+    let pdfDoc = null;
+
+    pdfInput.addEventListener('change', async e => {
+      const file = e.target.files[0];
+      if (!file || file.type !== 'application/pdf') {
+        status.textContent = 'Please select a valid PDF.';
+        return;
+      }
+      status.textContent = 'Loading PDF...';
+      const arrayBuffer = await file.arrayBuffer();
+      pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      status.textContent = `Loaded PDF (${pdfDoc.numPages} pages).`;
+      convertBtn.disabled = false;
+    });
+
+    convertBtn.addEventListener('click', async () => {
+      if (!pdfDoc) return;
+      convertBtn.disabled = true;
+      status.textContent = 'Extracting text...';
+      
+      const doc = new docx.Document();
+
+      for (let i = 1; i <= pdfDoc.numPages; i++) {
+        const page = await pdfDoc.getPage(i);
+        const textContent = await page.getTextContent();
+        const pageText = textContent.items.map(item => item.str).join(' ');
+        doc.addSection({
+          children: [
+            new docx.Paragraph({
+              children: [new docx.TextRun(pageText)],
+            })
+          ]
+        });
+      }
+
+      status.textContent = 'Generating .docx...';
+      const blob = await docx.Packer.toBlob(doc);
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'converted.docx';
+      a.textContent = 'Download your Word file';
+      status.innerHTML = '';
+      status.appendChild(a);
+    });
+  </script>
+</body>
+</html>
