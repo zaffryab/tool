@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Tool Hub - All Essential Online Tools</title>
+    <meta name="description" content="Free online tools for PDF, images, videos, documents and more. All tools work in your browser with no installation required.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #1E1E2F;
+            --text-color: #EAEAEA;
+            --header-bg: #2B2D42;
+            --accent: #FFD700;
+            --accent-hover: #E6C200;
+            --card-bg: #3A3D5B;
+            --card-hover: #FFD700;
+            --shadow: rgba(255, 215, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--header-bg);
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-section h1 {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-btn {
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .signin-btn {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--accent);
+        }
+
+        .signin-btn:hover {
+            background-color: rgba(255, 215, 0, 0.1);
+        }
+
+        .signup-btn {
+            background-color: var(--accent);
+            color: var(--bg-color);
+            border: 1px solid var(--accent);
+        }
+
+        .signup-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Search Bar */
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 10px 15px;
+            padding-right: 40px;
+            border-radius: 25px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            font-size: 16px;
+        }
+
+        .search-bar:focus {
+            outline: 1px solid var(--accent);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+
+        .hero h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .tool-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px var(--shadow);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tool-card:hover {
+            background-color: var(--card-hover);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px var(--shadow);
+        }
+
+        .tool-card:hover h2,
+        .tool-card:hover p {
+            color: var(--bg-color);
+        }
+
+        .tool-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+            transition: color 0.3s ease;
+        }
+
+        .tool-card p {
+            margin-bottom: 20px;
+            flex-grow: 1;
+            transition: color 0.3s ease;
+        }
+
+        .tool-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--accent);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            align-self: flex-start;
+        }
+
+        .tool-btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--header-bg);
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .nav-links {
+                order: 3;
+                flex-direction: column;
+                align-items: stretch;
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .search-container {
+                order: 2;
+                margin: 15px 0;
+                max-width: 100%;
+            }
+
+            .auth-buttons {
+                margin-top: 10px;
+                justify-content: center;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                right: 20px;
+                top: 20px;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <i class="fas fa-tools" style="font-size: 28px; color: var(--accent);"></i>
+                    <h1>Multi Tool Hub</h1>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <div class="nav-links" id="navLinks">
+                    <div class="search-container">
+                        <input type="text" class="search-bar" placeholder="Search tools...">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+
+                    <div class="auth-buttons">
+                        <a href="#" class="auth-btn signin-btn" id="signinBtn">Sign In</a>
+                        <a href="#" class="auth-btn signup-btn" id="signupBtn">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h2>All Essential Online Tools in One Place</h2>
+            <p>Free, fast, and easy-to-use tools for all your document, image, and media needs. No installation required.</p>
+        </section>
+
+        <!-- Tools Grid -->
+        <div class="tools-grid">
+            <!-- PDF Tools -->
+            <div class="tool-card">
+                <h2>PDF to Word</h2>
+                <p>Convert your PDF files to editable Word documents while preserving formatting.</p>
+                <button class="tool-btn" onclick="redirectToTool('PDF to Word')">Use Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h2>PDF to Excel</h2>
+                <p>Extract tables from PDF files into editable Excel spreadsheets.</p>
+                <button class="tool-btn" onclick="redirectToTool('PDF to Excel')">Use Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h2>PDF to PowerPoint</h2>
+                <p>Convert PDF presentations to editable PowerPoint slides.</p>
+                <button class="tool-btn" onclick="redirectToTool('PDF to PowerPoint')">Use Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h2>PDF to JPG</h2>
+                <p>Convert PDF pages to high-quality JPG images.</p>
+                <button class="tool-btn" onclick="redirectToTool('PDF to JPG')">Use Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h2>PDF Compressor</h2>
+                <p>Reduce PDF file size without losing quality.</p>
+                <button class="tool-btn" onclick="redirectToTool('PDF Compressor')">Use Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h2>Merge PDF</h2>
+                <p>Combine multiple PDF files into a single document.</p>
+                <button class="tool-btn" onclick="redirectToTool('Merge PDF')">Use Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h2>Split PDF</h2>
+                <p>Divide a PDF into multiple files by pages or sections.</p>
+                <button class="tool-btn" onclick="redirectToTool('Split PDF')">Use Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h2>Edit PDF</h2>
+                <p>Modify text, images, and pages in your PDF files.</p>
+                <button class="tool-btn" onclick="redirectToTool('Edit PDF')">Use Tool</button>
+            </div>
+
+            <!-- Image Tools -->
+            <div class="tool-card">
+                <h2>Image Compressor</h2>
+                <p>Reduce image file size without noticeable quality loss.</p>
+                <button class="tool-btn" onclick="redirectToTool('Image Compressor')">Use Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h2>Resize Image</h2>
+                <p>Change image dimensions while maintaining aspect ratio.</p>
+                <button class="tool-btn" onclick="redirectToTool('Resize Image')">Use Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h2>Crop Image</h2>
+                <p>Remove unwanted areas from your images with precision.</p>
+                <button class="tool-btn" onclick="redirectToTool('Crop Image')">Use Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h2>Convert Image</h2>
+                <p>Change image format between JPG, PNG, GIF, and more.</p>
+                <button class="tool-btn" onclick="redirectToTool('Convert Image')">Use Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h2>Blur Image</h2>
+                <p>Apply blur effects to images for privacy or artistic effects.</p>
+                <button class="tool-btn" onclick="redirectToTool('Blur Image')">Use Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h2>Rotate/Flip Image</h2>
+                <p>Adjust image orientation with rotation and flip options.</p>
+                <button class="tool-btn" onclick="redirectToTool('Rotate/Flip Image')">Use Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h2>Add Text to Image</h2>
+                <p>Overlay custom text on your images with various fonts and colors.</p>
+                <button class="tool-btn" onclick="redirectToTool('Add Text to Image')">Use Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h2>Meme Generator</h2>
+                <p>Create funny memes with popular templates and custom text.</p>
+                <button class="tool-btn" onclick="redirectToTool('Meme Generator')">Use Tool</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Multi Tool Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tool redirection function
+        function redirectToTool(toolName) {
+            alert(`Redirecting to ${toolName} tool...`);
+            // In a real implementation, this would navigate to the tool page
+            // window.location.href = `/tools/${toolName.toLowerCase().replace(/ /g, '-')}`;
+        }
+
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Sign In/Sign Up button functionality
+        document.getElementById('signinBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Sign In functionality would be implemented here');
+            // In a real implementation, this would open a sign in modal or page
+        });
+
+        document.getElementById('signupBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Sign Up functionality would be implemented here');
+            // In a real implementation, this would open a sign up modal or page
+        });
+
+        // Search functionality
+        const searchBar = document.querySelector('.search-bar');
+        searchBar.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = searchBar.value.trim();
+                if (searchTerm) {
+                    alert(`Searching for: ${searchTerm}`);
+                    // In a real implementation, this would filter tools or search database
+                }
+            }
+        });
+
+        // Initialize tool cards with animation on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const toolCards = document.querySelectorAll('.tool-card');
+            
+            toolCards.forEach((card, index) => {
+                // Add slight delay for staggered animation
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+    </script>
+</body>
+</html>
